@@ -19,8 +19,11 @@ Nokogiri::HTML(open('http://pokemondb.net/pokedex/all')).xpath('//td[@class = "n
 			p['evolutions'] << e.text
 		}
 
-		page.xpath('//table[@class = "data pokedex-moves-level"]/tbody/tr/td[@class = "name"]/a').each {|m|
-			p['moves'] << m.text
+		page.xpath('//table[@class = "data pokedex-moves-level"]/tbody/tr').each {|m|
+			p['moves'] << {
+				'name'  => m.at_xpath('descendant::td[@class = "name"]/a').text,
+				'level' => m.at_xpath('descendant::td[@class = "numeric"]').text.to_i
+			}
 		}
 
 		page.xpath('//table[@class = "data pokedex-moves-hm"]/tbody/tr/td[@class = "name"]/a').each {|m|
