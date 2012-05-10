@@ -11,7 +11,7 @@ Nokogiri::HTML(open('http://pokemondb.net/pokedex/all')).xpath('//td[@class = "n
 		p['id']   = page.xpath('//tr/td/strong').first.text
     p['name'] = page.xpath('//div[@class = "navbar"]/h1').first.text
 
-		page.xpath('//table[@class = "vitals"][@style = "width:100%"]/tr[2]/td/a').each {|t|
+		page.xpath('//table[@class = "vitals"][@style = "width:100%"]/tbody/tr[2]/td/a').each {|t|
 			p['types'] << t.content
 		}
 
